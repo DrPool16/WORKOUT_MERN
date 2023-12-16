@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+
 // components
 import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
@@ -13,9 +14,7 @@ const Home = () => {
     useEffect(()=>{
         const fetchWorkouts = async () => {
             const response = await fetch('/api/workouts', {
-                headers:{
-                    'Authorization' : `Bearer ${user.token}`
-                }
+                headers:{'Authorization' : `Bearer ${user.token}`}
             })
             const json = await response.json()
 
@@ -26,7 +25,7 @@ const Home = () => {
         if(user){
             fetchWorkouts()
         }
-    }, [dispatch])
+    }, [dispatch, user])
     return (
         <div className="home">
             <div className="workouts">

@@ -10,24 +10,25 @@ export const useSignup = () => {
         setIsLoading(true)
         setError(null)
 
-        const reponse = await fetch('/api/user/signup',{
+        const response = await fetch('/api/user/signup',{
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
         })
-        const json = await reponse.json()
+        const json = await response.json()
 
-        if(!reponse.ok){
+        if(!response.ok){
             setIsLoading(false)
             setError(json.error)
         }
-        if(reponse.ok){
+        if(response.ok){
             // save the user to local storage
             localStorage.setItem('user', JSON.stringify(json))
 
             // update the auth context
             dispatch({type: 'LOGIN', payload: json})
-
+            
+            //update loading state
             setIsLoading(false)
         }
     }
